@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, Swords, Zap, Trophy } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'
 
 const TITLE = ['B', '.', 'Y', '.', 'T', '.', 'E', ' ', 'B', 'A', 'T', 'T', 'L', 'E'];
 
@@ -7,6 +8,9 @@ const ByteBattleHomepage = () => {
   const [isDark, setIsDark] = useState(false);
   const [visibleLetters, setVisibleLetters] = useState([]);
   const [timeLeft, setTimeLeft] = useState(255);
+  const navigate = useNavigate()
+
+
 
   /* LETTER ANIMATION */
   useEffect(() => {
@@ -31,7 +35,7 @@ const ByteBattleHomepage = () => {
   /* THEME */
   const theme = {
     navText: isDark
-      ? 'text-cyam-500 hover:text-red-400'
+      ? 'text-orange-500 hover:text-red-400'
       : 'text-blue-600 hover:text-blue-500',
 
     iconBg: isDark
@@ -80,13 +84,15 @@ const ByteBattleHomepage = () => {
             )}
           </button>
 
-          <button className="px-6 py-2 bg-gray-900 text-white rounded-lg">
+          <button className="px-6 py-2 bg-gray-900 text-white rounded-lg" onClick={() => navigate('/login')}>
             Login
           </button>
 
           <Menu className="md:hidden" />
         </div>
       </nav>
+
+
 
       {/* HERO */}
       <main className="text-center py-20">
