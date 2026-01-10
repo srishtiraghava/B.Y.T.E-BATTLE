@@ -1,16 +1,15 @@
+import { useTheme } from './ThemeContext';
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, Swords, Zap, Trophy } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const TITLE = ['B', '.', 'Y', '.', 'T', '.', 'E', ' ', 'B', 'A', 'T', 'T', 'L', 'E'];
 
 const ByteBattleHomepage = () => {
-  const [isDark, setIsDark] = useState(false);
   const [visibleLetters, setVisibleLetters] = useState([]);
   const [timeLeft, setTimeLeft] = useState(255);
-  const navigate = useNavigate()
-
-
+  const { isDark, toggleTheme } = useTheme(); // FIXED: Correct destructuring
+  const navigate = useNavigate();
 
   /* LETTER ANIMATION */
   useEffect(() => {
@@ -72,16 +71,16 @@ const ByteBattleHomepage = () => {
             </a>
           ))}
 
-          {/* THEME TOGGLER — FIXED */}
-          <button
-            onClick={() => setIsDark(!isDark)}
-            className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800"
+          {/* THEME TOGGLER */}
+          <button 
+            onClick={toggleTheme}
+            className="p-2 rounded-lg border transition-colors"
+            style={{
+              backgroundColor: isDark ? '#374151' : '#fff',
+              borderColor: isDark ? '#4B5563' : '#E5E7EB'
+            }}
           >
-            {isDark ? (
-              <Sun className="text-yellow-400" />
-            ) : (
-              <Moon className="text-blue-600" />  
-            )}
+            {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-700" />}
           </button>
 
           <button className="px-6 py-2 bg-gray-900 text-white rounded-lg" onClick={() => navigate('/login')}>
@@ -91,8 +90,6 @@ const ByteBattleHomepage = () => {
           <Menu className="md:hidden" />
         </div>
       </nav>
-
-
 
       {/* HERO */}
       <main className="text-center py-20">
@@ -125,25 +122,23 @@ const ByteBattleHomepage = () => {
           START BATTLE
         </button>
 
-       <div className="mt-8 flex justify-center gap-4">
+        <div className="mt-8 flex justify-center gap-4">
+          {/* Start Battle – theme based */}
+          <button
+            className={`px-8 py-3 rounded-xl text-white font-semibold flex items-center gap-2
+              ${isDark ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}
+            `}
+          >
+            <Zap size={18} />
+            Start Battle
+          </button>
 
-  {/* Start Battle – theme based */}
-  <button
-    className={`px-8 py-3 rounded-xl text-white font-semibold flex items-center gap-2
-      ${isDark ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}
-    `}
-  >
-    <Zap size={18} />
-    Start Battle
-  </button>
-
-  {/* View Rules – always green */}
-  <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-xl font-semibold text-lg transition shadow-lg hover:shadow-xl flex items-center space-x-2">
-                                <Trophy className="w-5 h-5" />
-                                <span>View Rules</span>
-                            </button>
-
-</div>
+          {/* View Rules – always green */}
+          <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-xl font-semibold text-lg transition shadow-lg hover:shadow-xl flex items-center space-x-2">
+            <Trophy className="w-5 h-5" />
+            <span>View Rules</span>
+          </button>
+        </div>
 
       </main>
     </div>
