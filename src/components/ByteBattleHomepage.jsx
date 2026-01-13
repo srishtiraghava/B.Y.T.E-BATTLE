@@ -2,16 +2,17 @@ import { useTheme } from './ThemeContext';
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, Swords, Zap, Trophy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ElectricBorder from './ElectricBoarder.tsx';
+
 
 const TITLE = ['B', '.', 'Y', '.', 'T', '.', 'E', ' ', 'B', 'A', 'T', 'T', 'L', 'E'];
 
 const ByteBattleHomepage = () => {
   const [visibleLetters, setVisibleLetters] = useState([]);
   const [timeLeft, setTimeLeft] = useState(255);
-  const { isDark, toggleTheme } = useTheme(); // FIXED: Correct destructuring
+  const { isDark, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
-  /* LETTER ANIMATION */
   useEffect(() => {
     TITLE.forEach((_, i) => {
       setTimeout(() => {
@@ -20,7 +21,6 @@ const ByteBattleHomepage = () => {
     });
   }, []);
 
-  /* TIMER */
   useEffect(() => {
     const t = setInterval(() => {
       setTimeLeft(p => (p <= 0 ? 300 : p - 1));
@@ -31,77 +31,87 @@ const ByteBattleHomepage = () => {
   const formatTime = s =>
     `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
 
-  /* THEME */
   const theme = {
     navText: isDark
-      ? 'text-orange-500 hover:text-red-400'
-      : 'text-blue-600 hover:text-blue-500',
+      ? 'text-green-400 hover:text-green-300'
+      : 'text-green-700 hover:text-green-800',
 
     iconBg: isDark
-      ? 'bg-gradient-to-br from-red-500 to-red-600'
-      : 'bg-gradient-to-br from-blue-500 to-red-400',
+      ? 'bg-gradient-to-br from-emerald-800 to-emerald-800'
+      : 'bg-gradient-to-br from-emerald-800 to-emerald-800',
 
-    bigStartBtn: isDark
-      ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700'
-      : 'bg-gradient-to-r from-blue-500 to-red-400 hover:from-blue-600 hover:to-red-500',
+    startBtn: isDark
+      ? 'bg-emerald-700 hover:bg-emerald-800'
+      : 'bg-emerald-700 hover:bg-emerald-800',
 
-    smallStartBtn: isDark
-      ? 'bg-red-600 hover:bg-red-700'
-      : 'bg-blue-600 hover:bg-blue-700',
-
-    rulesBtn: 'bg-green-600 hover:bg-green-700', // ALWAYS GREEN
+    rulesBtn: isDark
+      ? 'bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900'
+      : 'bg-gradient-to-r from-emerald-700 to-emerald-800 hover:from-emerald-800 hover:to-emerald-900',
   };
 
   return (
-    <div className={`min-h-screen transition-colors ${isDark ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
-
+   <div
+  className="min-h-screen transition-colors"
+  style={{
+    backgroundColor: isDark
+      ? "rgba(0,0,0,0.85)"
+      : "rgba(255,255,255,0.85)",
+  }}
+>
       {/* NAVBAR */}
-      <nav className="px-6 py-4 flex justify-between items-center border-b border-gray-300">
+      <nav className="px-6 py-4 flex justify-between items-center border-b border-gray-700/30">
         <div className="flex items-center gap-2">
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${theme.iconBg}`}>
             <Swords className="text-white w-5 h-5" />
           </div>
-          <span className={`text-xl font-bold ${theme.navText}`}>ByteBattle</span>
+         
+          <span className={`text-xl font-bold ${theme.navText}`}>
+            ByteBattle
+          </span>
         </div>
 
-        <div className="flex items-center gap-6">
-          {['Home', 'Guide', 'Level Sheet', 'Contest'].map(item => (
-            <a key={item} href="#" className={`font-medium ${theme.navText}`}>
+        <div className="hidden md:flex items-center gap-8">
+          {['Home', 'Guide', 'Level Sheet', 'Profile'].map(item => (
+            <a 
+              key={item} 
+              href="#" 
+              className={`font-medium transition-colors ${theme.navText}`}
+            >
               {item}
             </a>
           ))}
 
-          {/* THEME TOGGLER */}
           <button 
             onClick={toggleTheme}
-            className="p-2 rounded-lg border transition-colors"
+            className="p-2 rounded-lg border transition-colors border-gray-600/50 hover:border-gray-500"
             style={{
-              backgroundColor: isDark ? '#374151' : '#fff',
-              borderColor: isDark ? '#4B5563' : '#E5E7EB'
+              backgroundColor: isDark ? '#374151' : '#ffffff',
             }}
           >
             {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-700" />}
           </button>
 
-          <button className="px-6 py-2 bg-gray-900 text-white rounded-lg" onClick={() => navigate('/login')}>
+          <button 
+            className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
+            onClick={() => navigate('/login')}
+          >
             Login
           </button>
-
-          <Menu className="md:hidden" />
         </div>
+
+        <Menu className="md:hidden text-gray-400" size={24} />
       </nav>
 
       {/* HERO */}
-      <main className="text-center py-20">
+      <main className="text-center py-20 px-4 max-w-5xl mx-auto">
 
-        {/* LETTER ANIMATION HEADING */}
-        <h1 className="text-5xl md:text-7xl font-extrabold mb-6">
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight">
           {TITLE.map((ch, i) => (
             <span
               key={i}
               className={`inline-block transition-all duration-500
                 ${visibleLetters.includes(i) ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-6'}
-                ${isDark ? 'text-red-500' : 'text-blue-600'}
+                ${isDark ? 'text-emerald-700' : 'text-emerald-700'}
               `}
               style={{ marginRight: ch === ' ' ? '12px' : '2px' }}
             >
@@ -110,34 +120,45 @@ const ByteBattleHomepage = () => {
           ))}
         </h1>
 
-        <p className="text-gray-500 mb-8">EVERY TICK COUNTS.</p>
+        <p className={`text-xl md:text-2xl font-medium mb-10 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+          EVERY TICK COUNTS.
+        </p>
 
-        {/* TIMER */}
-        <div className="text-7xl font-mono font-bold mb-10 text-blue-500">
+        <div className="text-7xl md:text-8xl font-mono font-black mb-12 text-emerald-500 tracking-wider">
           {formatTime(timeLeft)}
         </div>
 
-        {/* BIG START */}
-        <button className={`px-12 py-4 rounded-xl text-white font-semibold ${theme.bigStartBtn}`}>
-          START BATTLE
-        </button>
+        <div className="flex flex-col justify-center items-center gap-6 md:gap-8 mt-4">
+          <div className="flex flex-col sm:flex-row gap-6 md:gap-8">
+            <button
+              className={`px-10 py-4 rounded-xl text-white font-bold text-lg flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all ${theme.startBtn}`}
+            >
+              <Zap size={20} />
+              Start Battle
+            </button>
 
-        <div className="mt-8 flex justify-center gap-4">
-          {/* Start Battle – theme based */}
-          <button
-            className={`px-8 py-3 rounded-xl text-white font-semibold flex items-center gap-2
-              ${isDark ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}
-            `}
-          >
-            <Zap size={18} />
-            Start Battle
-          </button>
+            <button
+              className={`px-10 py-4 rounded-xl font-bold text-lg text-white flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all ${theme.rulesBtn}`}
+            >
+              <Trophy size={20} />
+              View Rules
+            </button>
+          </div>
 
-          {/* View Rules – always green */}
-          <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 rounded-xl font-semibold text-lg transition shadow-lg hover:shadow-xl flex items-center space-x-2">
-            <Trophy className="w-5 h-5" />
-            <span>View Rules</span>
-          </button>
+          {/* Tagline section */}
+          <div className="mt-6 text-center space-y-2 md:space-y-3">
+            <p className={`text-xl md:text-2xl font-semibold tracking-wide ${isDark ? 'text-emerald-400/90' : 'text-emerald-700'}`}>
+              1 vs 1 coding platform
+            </p>
+
+            <p className={`text-lg md:text-xl font-bold ${isDark ? 'text-emerald-500' : 'text-emerald-600'}`}>
+              Code Fast. Break Things. Fix Faster.
+            </p>
+
+            <p className={`mt-2 text-lg md:text-xl font-medium italic ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+              "Lock in or get locked out"
+            </p>
+          </div>
         </div>
 
       </main>
