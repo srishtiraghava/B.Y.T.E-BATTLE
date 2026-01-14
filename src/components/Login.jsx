@@ -33,16 +33,8 @@ const Login = () => {
     <div className={`min-h-screen flex items-center justify-center p-4 transition-colors duration-300 ${isDark ? 'bg-gray-950' : 'bg-gray-50'}`}>
       <div className="w-full max-w-md">
         
-        {/* Back Button */}
-        <button 
-          onClick={() => navigate('/')}
-          className="w-full flex items-center justify-center gap-2 mb-8 py-3 px-4 rounded-xl font-semibold text-white transition-all active:scale-95 hover:brightness-110 shadow-md"
-          style={{ backgroundColor: darkGreen }}
-        >
-          <ArrowLeft size={18} />
-          Back to Homepage
-        </button>
-
+       
+       
         {/* Card */}
         <div 
           className="p-8 rounded-2xl transition-all shadow-2xl"
@@ -190,6 +182,15 @@ const Login = () => {
               Sign up
             </a>
           </p>
+           <button 
+          onClick={() => navigate('/')}
+          className="w-full flex items-center justify-center gap-2 mb-8 py-3 px-4 rounded-xl font-semibold text-white transition-all active:scale-95 hover:brightness-110 shadow-md"
+          style={{ backgroundColor: darkGreen }}
+        >
+          <ArrowLeft size={18} />
+          Back to Homepage
+        </button>
+
         </div>
       </div>
     </div>

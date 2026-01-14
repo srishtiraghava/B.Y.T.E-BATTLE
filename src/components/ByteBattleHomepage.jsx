@@ -2,7 +2,17 @@ import { useTheme } from './ThemeContext';
 import React, { useState, useEffect } from 'react';
 import { Moon, Sun, Menu, Swords, Zap, Trophy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import ElectricBorder from './ElectricBoarder.tsx';
+
+import { NoiseBackground } from "@/components/ui/noise-background";
+
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+import { motion } from "motion/react";
+
+
+ 
+ 
+
+
 
 
 const TITLE = ['B', '.', 'Y', '.', 'T', '.', 'E', ' ', 'B', 'A', 'T', 'T', 'L', 'E'];
@@ -50,24 +60,25 @@ const ByteBattleHomepage = () => {
   };
 
   return (
-   <div
-  className="min-h-screen transition-colors"
-  style={{
-    backgroundColor: isDark
-      ? "rgba(0,0,0,0.85)"
-      : "rgba(255,255,255,0.85)",
-  }}
->
+  <div className={`min-h-screen transition-colors ${isDark ? 'bg-black text-white' : 'bg-white text-gray-900'}`}>
+    
+     
       {/* NAVBAR */}
+   
       <nav className="px-6 py-4 flex justify-between items-center border-b border-gray-700/30">
         <div className="flex items-center gap-2">
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${theme.iconBg}`}>
             <Swords className="text-white w-5 h-5" />
           </div>
-         
-          <span className={`text-xl font-bold ${theme.navText}`}>
-            ByteBattle
-          </span>
+          <div>
+      <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
+        <LayoutTextFlip
+          text="Welcome to "
+          words={["Code Clash", "1v1 Arena", "Code Fight Club", "Duel Grounds"]}
+        />
+      </motion.div>
+      
+    </div>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
@@ -130,19 +141,54 @@ const ByteBattleHomepage = () => {
 
         <div className="flex flex-col justify-center items-center gap-6 md:gap-8 mt-4">
           <div className="flex flex-col sm:flex-row gap-6 md:gap-8">
-            <button
-              className={`px-10 py-4 rounded-xl text-white font-bold text-lg flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all ${theme.startBtn}`}
-            >
-              <Zap size={20} />
-              Start Battle
-            </button>
-
-            <button
-              className={`px-10 py-4 rounded-xl font-bold text-lg text-white flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all ${theme.rulesBtn}`}
-            >
-              <Trophy size={20} />
-              View Rules
-            </button>
+           <NoiseBackground
+      containerClassName="w-fit rounded-xl"
+      gradientColors={[
+        "rgb(255, 100, 150)",
+        "rgb(100, 150, 255)",
+        "rgb(255, 200, 100)",
+      ]}
+    >
+      <button
+        className={`
+          px-10 py-4 rounded-xl font-bold text-lg
+          bg-gradient-to-r from-neutral-900 via-neutral-950 to-black
+          text-white
+          shadow-lg hover:shadow-xl 
+          transform hover:-translate-y-1 
+          transition-all duration-200 
+          active:scale-98
+        `}
+      >
+        <Trophy size={20} className="inline mr-2" />
+        View Rules
+      </button>
+    </NoiseBackground>
+ <div className="flex justify-center">
+     <NoiseBackground
+      containerClassName="w-fit rounded-xl"
+      gradientColors={[
+        "rgb(255, 100, 150)",
+        "rgb(100, 150, 255)",
+        "rgb(255, 200, 100)",
+      ]}
+    >
+      <button
+        className={`
+          px-10 py-4 rounded-xl font-bold text-lg
+          bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500
+          text-black
+          shadow-lg hover:shadow-xl 
+          transform hover:-translate-y-1 
+          transition-all duration-200 
+          active:scale-98
+        `}
+      >
+        <Zap size={20} className="inline mr-2" />
+        Start Battle
+      </button>
+    </NoiseBackground>
+    </div>
           </div>
 
           {/* Tagline section */}
@@ -165,5 +211,6 @@ const ByteBattleHomepage = () => {
     </div>
   );
 };
+
 
 export default ByteBattleHomepage;
