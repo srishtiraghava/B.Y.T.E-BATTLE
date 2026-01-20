@@ -7,11 +7,7 @@ import { NoiseBackground } from "@/components/ui/noise-background";
 
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { motion } from "motion/react";
-
-
- 
- 
-
+import { Link } from 'react-router-dom';
 
 
 
@@ -82,33 +78,38 @@ const ByteBattleHomepage = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          {['Home', 'Guide', 'Level Sheet', 'Profile'].map(item => (
-            <a 
-              key={item} 
-              href="#" 
-              className={`font-medium transition-colors ${theme.navText}`}
-            >
-              {item}
-            </a>
-          ))}
+  {['Home', 'Guide', 'Level Sheet', 'Profile'].map(item => {
+    const path = item === 'Home' ? '/' 
+               : item === 'Profile' ? '/Profile'    // or '/profile' if you change the route
+               : `/${item.toLowerCase().replace(/\s+/g, '-')}`;
 
-          <button 
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border transition-colors border-gray-600/50 hover:border-gray-500"
-            style={{
-              backgroundColor: isDark ? '#374151' : '#ffffff',
-            }}
-          >
-            {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-700" />}
-          </button>
+    return (
+      <Link
+        key={item}
+        to={path}
+        className={`font-medium transition-colors ${theme.navText}`}
+      >
+        {item}
+      </Link>
+    );
+  })}
 
-          <button 
-            className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
-            onClick={() => navigate('/login')}
-          >
-            Login
-          </button>
-        </div>
+  {/* theme toggle button */}
+  <button 
+    onClick={toggleTheme}
+    className="p-2 rounded-lg border transition-colors border-gray-600/50 hover:border-gray-500"
+    style={{ backgroundColor: isDark ? '#374151' : '#ffffff' }}
+  >
+    {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-700" />}
+  </button>
+
+  <button 
+    className="px-6 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition"
+    onClick={() => navigate('/login')}
+  >
+    Login
+  </button>
+</div>
 
         <Menu className="md:hidden text-gray-400" size={24} />
       </nav>
