@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { NoiseBackground } from "@/components/ui/noise-background";
 
-import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+
 import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
 
@@ -66,15 +66,10 @@ const ByteBattleHomepage = () => {
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${theme.iconBg}`}>
             <Swords className="text-white w-5 h-5" />
           </div>
-          <div>
-      <motion.div className="relative mx-4 my-4 flex flex-col items-center justify-center gap-4 text-center sm:mx-0 sm:mb-0 sm:flex-row">
-        <LayoutTextFlip
-          text="Welcome to "
-          words={["Code Clash", "1v1 Arena", "Code Fight Club", "Duel Grounds"]}
-        />
-      </motion.div>
-      
-    </div>
+          <div className="text-xl font-bold ml-2">
+            <span className="text-emerald-500">Byte</span>
+            <span className={isDark ? 'text-white' : 'text-gray-900'}>Battle</span>
+          </div>
         </div>
 
         <div className="hidden md:flex items-center gap-8">
