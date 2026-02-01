@@ -23,6 +23,8 @@ import SkillsCard from "../components/Profile/SkillsCard";
 import BattleStatsCard from "../components/Profile/BattleStatsCard";
 import BadgesCard from "../components/Profile/BadgeCard";
 import ActivityGrid from "../components/Profile/ActivityGrid";
+import CodeforcesCard from "../components/Profile/CodeForces";
+
 
 const Profile = () => {
   const { isDark, toggleTheme } = useTheme();
@@ -156,12 +158,10 @@ const Profile = () => {
               techStack={userData.techStack}
               className="shadow-md rounded-xl p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700/30"
             />
-            <div className="shadow-md rounded-xl p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700/30">
-              <h3 className="font-semibold text-lg mb-2">Codeforces</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                @{userData.codeforcesHandle}
-              </p>
-            </div>
+            <CodeforcesCard 
+              handle={userData.codeforcesHandle}
+              className="shadow-md rounded-xl p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700/30"
+            />
             <SkillsCard
               skills={userSkills}
               className="shadow-md rounded-xl p-6 bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700/30"
