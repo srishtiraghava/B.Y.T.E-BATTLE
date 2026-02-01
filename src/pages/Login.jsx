@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Zap, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from './ThemeContext';
+import { useTheme } from '../Theme/ThemeContext';
 
 const Login = () => {
   const { isDark } = useTheme();

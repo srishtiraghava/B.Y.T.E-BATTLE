@@ -2,10 +2,10 @@ import { useState } from 'react'
 import React from 'react'
 import './global.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import ByteBattleHomepage from './components/ByteBattleHomepage.jsx'
-import Login from './components/Login.jsx'
-import { ThemeProvider } from './components/ThemeContext.jsx'
-import Profile from './components/Profile.jsx'
+import ByteBattleHomepage from './pages/ByteBattleHomepage.jsx'
+import Login from './pages/Login.jsx'
+import { ThemeProvider } from './Theme/ThemeContext.jsx'
+import Profile from './pages/Profile.jsx'
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ByteBattleHomepage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/Profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           
         </Routes>
       </Router>
